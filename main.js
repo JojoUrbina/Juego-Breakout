@@ -1,4 +1,5 @@
 //barra
+const perdiste = document.querySelector("#perdiste")
 const delta = 20;
 let left = 200;
 document.body.addEventListener("keydown", (e) => {
@@ -28,10 +29,11 @@ const bola = document.querySelector(".ball");
 const anchoBola = 25;
 let direccionEjeVertical = "abajo";
 let direccionEjeHorizontal = "derecha";
+let i = 0
 
 function moverPelota() {
   const fieldWidth = document.querySelector(".ball-container").clientWidth;
-
+//crear ds funciones, que sean sobre movimiento en eje horizontal o vertical
   if (direccionEjeVertical === "abajo") {
     topCoord += topDelta;
 
@@ -44,8 +46,11 @@ function moverPelota() {
     }
 
     if (topCoord === fieldHeight - anchoBola) {
+      i++
       direccionEjeVertical = "arriba";
+      perdiste.textContent = `Perdiste ${i} veces`
       console.log("perdiste");
+
     }
   } else if (direccionEjeVertical === "arriba") {
     topCoord -= topDelta;
@@ -86,5 +91,9 @@ function empezarJuego() {
   if (intervalID !== null) {
     clearInterval(intervalID);
   }
-  intervalID = setInterval(moverPelota, 50);
+  intervalID = setInterval(moverPelota, 30);
+}
+function perder() {
+  topCoord = 1
+leftCoord= 1
 }
