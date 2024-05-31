@@ -1,0 +1,70 @@
+/* General -------------------------------------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+  background-color: #eee;
+  font-family: sans-serif;
+  font-weight: 100;
+  padding: 5px;
+}
+
+body {
+  margin: 0 4em;
+}
+
+h1,
+h2 {
+  color: #333;
+  font-weight: 700;
+  border-bottom: #333 1px dashed;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+h2 ~ h2 {
+  padding-top: 30px;
+}
+
+#h2-breakout ~ h2 {
+  padding-top: 70px;
+}
+
+.bar {
+  width: 80px;
+  height: 20px;
+  bottom: 0;
+  position: absolute;
+  left: 200px;
+  background-color: #8ce;
+  border: 3px #fff solid;
+  border-radius: 10px;
+  transition: all 30ms linear;
+}
+
+/* Task 7 --------------------------------------------------------------------------------------- */
+
+.ball-container {
+  width: 80%;
+  height: 200px;
+  margin: 0 auto;
+  background-color: #034;
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.ball {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  background-color: #8ce;
+  border-radius: 15px;
+  transition: all 50ms linear;
+}
+#botones{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+}
