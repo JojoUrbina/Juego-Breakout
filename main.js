@@ -36,7 +36,6 @@ function moverPelota() {
   //crear ds funciones, que sean sobre movimiento en eje horizontal o vertical
   perdiste.textContent = "...";
 
-
   if (direccionEjeVertical === "abajo") {
     topCoord += topDelta;
 
@@ -53,8 +52,7 @@ function moverPelota() {
       i++;
       pausarJuego();
       perder();
-  btnInciar.textContent = "Iniciar";
-
+      btnInciar.textContent = "Iniciar";
     }
   } else if (direccionEjeVertical === "arriba") {
     topCoord -= topDelta;
@@ -80,11 +78,16 @@ function moverPelota() {
 }
 
 let intervalID = null;
+//botones
 const btnInciar = document.querySelector("#iniciar-juego");
+const btnReiniciar = document.querySelector("#reiniciar-juego");
 
 btnInciar.addEventListener("click", () => {
   empezarJuego();
   btnInciar.textContent = "Continuar";
+});
+btnReiniciar.addEventListener("click", () => {
+  reiniciarJuego();
 });
 
 document.querySelector("#pausar-juego").addEventListener("click", () => {
@@ -104,4 +107,12 @@ function perder() {
 }
 function pausarJuego() {
   clearInterval(intervalID);
+}
+function reiniciarJuego() {
+  btnInciar.textContent = "Iniciar";
+  pausarJuego();
+  leftCoord = 0;
+  topCoord = 0;
+  bola.style.left = `0px`;
+  bola.style.top = `0px`;
 }
