@@ -62,7 +62,7 @@ h2 ~ h2 {
   border-radius: 15px;
   transition: all 50ms linear;
 }
-#botones{
+.botones{
   display: flex;
   width: 100%;
   justify-content: center;

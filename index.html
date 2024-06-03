@@ -6,20 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="styles.css" rel="stylesheet" type="text/css" />
     <script src="main.js" type="text/javascript" defer></script>
-    <title>Juego Breackout</title>
+    <title>Juego Breakout</title>
   </head>
   <body>
     <header>
-      <h1>Juego Breackout</h1>
+      <h1>Juego Breakout</h1>
     </header>
-    
-    <div id="botones">
-    <button id="iniciar-juego">Iniciar</button>
-    <button id="pausar-juego">Pausar</button>
-    <button id="reiniciar-juego">Reiniciar</button>
 
-</div>
-
+    <div class="botones">
+      <button id="iniciar-juego">Iniciar</button>
+      <button id="pausar-juego">Pausar</button>
+      <button id="reiniciar-juego">Reiniciar</button>
+    </div>
+    <div class="botones">
+      <button id="aumentar-velocidad">+</button>
+      <span  >Velocidad:<span id="velocidad-bola">0</span></span>
+      <button id="disminuir-velocidad">-</button>
+    </div>
     <div class="ball-container">
       <div class="ball"></div>
       <div class="bar"></div>

@@ -30,6 +30,8 @@ const anchoBola = 25;
 let direccionEjeVertical = "abajo";
 let direccionEjeHorizontal = "derecha";
 let puntos = 0;
+let velocidadBola = 30;
+let velocidadBolaMostrada = 0;
 
 function moverPelota() {
   const fieldWidth = document.querySelector(".ball-container").clientWidth;
@@ -83,10 +85,19 @@ let intervalID = null;
 //botones
 const btnInciar = document.querySelector("#iniciar-juego");
 const btnReiniciar = document.querySelector("#reiniciar-juego");
+const btnAumentarVelocidad = document.querySelector("#aumentar-velocidad");
+const btnDisminuirVelocidad = document.querySelector("#disminuir-velocidad");
+const spanVelocidadBola = document.querySelector("#velocidad-bola");
 const marcador = document.querySelector("#marcador");
+btnAumentarVelocidad.addEventListener("click", () => {
+  aumentarVelocidadBola();
+});
+btnDisminuirVelocidad.addEventListener("click", () => {
+  disminuirVelocidadBola();
+});
 
 btnInciar.addEventListener("click", () => {
-  empezarJuego();
+  empezarJuego(velocidadBola);
   btnInciar.textContent = "Continuar";
 });
 btnReiniciar.addEventListener("click", () => {
@@ -97,13 +108,14 @@ document.querySelector("#pausar-juego").addEventListener("click", () => {
   pausarJuego();
 });
 
-function empezarJuego() {
+function empezarJuego(velocidadBola) {
   if (intervalID !== null) {
     clearInterval(intervalID);
   }
-  intervalID = setInterval(moverPelota, 30);
+  intervalID = setInterval(moverPelota, velocidadBola);
 }
 function perder() {
+  velocidadBola = 30;
   leftCoord = 0;
   topCoord = 0;
   perdiste.textContent = `Perdiste`;
@@ -112,14 +124,14 @@ function pausarJuego() {
   clearInterval(intervalID);
 }
 function reiniciarJuego() {
-  reiniciarMarcador();
-  pausarJuego();
   btnInciar.textContent = "Iniciar";
-  direccionEjeVertical = "abajo"
+  direccionEjeVertical = "abajo";
   leftCoord = 0;
   topCoord = 0;
   bola.style.left = `0px`;
   bola.style.top = `0px`;
+  reiniciarMarcador();
+  pausarJuego();
 }
 
 function sumarMarcador(puntos) {
@@ -129,4 +141,16 @@ function reiniciarMarcador() {
   const marcador = document.querySelector("#marcador");
   puntos = 0;
   marcador.textContent = puntos;
+}
+function aumentarVelocidadBola() {
+  velocidadBola--;
+  velocidadBolaMostrada++;
+  pausarJuego();
+  spanVelocidadBola.textContent = velocidadBolaMostrada;
+}
+function disminuirVelocidadBola() {
+  velocidadBola++;
+  velocidadBolaMostrada--;
+  pausarJuego();
+  spanVelocidadBola.textContent = velocidadBolaMostrada;
 }
