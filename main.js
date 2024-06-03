@@ -7,6 +7,20 @@ const spanVelocidadBola = document.querySelector("#velocidad-bola");
 const perdiste = document.querySelector("#perdiste");
 const marcador = document.querySelector("#marcador");
 
+const movimientoDeBarraEnPixeles = 20;
+let coordLeftBarra = 200;
+
+let topDelta = (leftDelta = 5);
+let topCoord = (leftCoord = 0);
+
+const bola = document.querySelector(".ball");
+const anchoBola = 25;
+let direccionEjeVertical = "abajo";
+let direccionEjeHorizontal = "derecha";
+let puntos = 0;
+let velocidadBola = 30;
+let velocidadBolaMostrada = 0;
+
 document.body.addEventListener("keydown", (e) => {
   moverBarra(e);
 });
@@ -30,9 +44,6 @@ btnDisminuirVelocidad.addEventListener("click", () => {
   disminuirVelocidadBola();
 });
 
-const movimientoDeBarraEnPixeles = 20;
-let coordLeftBarra = 200;
-
 function moverBarra(e) {
   const anchoDeContenedor =
     document.querySelector(".ball-container").clientWidth;
@@ -49,18 +60,6 @@ function moverBarra(e) {
   }
   barra.style.left = `${coordLeftBarra}px`;
 }
-
-//pelota
-let topDelta = (leftDelta = 5);
-let topCoord = (leftCoord = 0);
-
-const bola = document.querySelector(".ball");
-const anchoBola = 25;
-let direccionEjeVertical = "abajo";
-let direccionEjeHorizontal = "derecha";
-let puntos = 0;
-let velocidadBola = 30;
-let velocidadBolaMostrada = 0;
 
 function moverPelota() {
   const fieldHeight = document.querySelector(".ball-container").clientHeight;
@@ -80,10 +79,7 @@ function moverPelota() {
 
     if (topCoord === fieldHeight - anchoBola) {
       //cuando pierde
-      pausarJuego();
-      perder();
-      reiniciarMarcador();
-      btnInciar.textContent = "Iniciar";
+      return perder();
     }
   } else if (direccionEjeVertical === "arriba") {
     topCoord -= topDelta;
@@ -116,11 +112,8 @@ function empezarJuego(velocidadBola) {
   intervalID = setInterval(moverPelota, velocidadBola);
 }
 function perder() {
-  velocidadBola = 30;
-  leftCoord = 0;
-  topCoord = 0;
+  reiniciarJuego();
   perdiste.textContent = `Perdiste`;
-  reiniciarVelocidad();
 }
 function pausarJuego() {
   clearInterval(intervalID);
