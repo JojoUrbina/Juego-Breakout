@@ -29,7 +29,7 @@ const bola = document.querySelector(".ball");
 const anchoBola = 25;
 let direccionEjeVertical = "abajo";
 let direccionEjeHorizontal = "derecha";
-let i = 0;
+let puntos = 0;
 
 function moverPelota() {
   const fieldWidth = document.querySelector(".ball-container").clientWidth;
@@ -44,14 +44,16 @@ function moverPelota() {
       leftCoord - left >= -40 &&
       leftCoord - left <= 80
     ) {
+      puntos++;
+      sumarMarcador(puntos);
       direccionEjeVertical = "arriba";
     }
 
     if (topCoord === fieldHeight - anchoBola) {
       //cuando pierde
-      i++;
       pausarJuego();
       perder();
+      reiniciarMarcador();
       btnInciar.textContent = "Iniciar";
     }
   } else if (direccionEjeVertical === "arriba") {
@@ -81,6 +83,7 @@ let intervalID = null;
 //botones
 const btnInciar = document.querySelector("#iniciar-juego");
 const btnReiniciar = document.querySelector("#reiniciar-juego");
+const marcador = document.querySelector("#marcador");
 
 btnInciar.addEventListener("click", () => {
   empezarJuego();
@@ -109,10 +112,21 @@ function pausarJuego() {
   clearInterval(intervalID);
 }
 function reiniciarJuego() {
-  btnInciar.textContent = "Iniciar";
+  reiniciarMarcador();
   pausarJuego();
+  btnInciar.textContent = "Iniciar";
+  direccionEjeVertical = "abajo"
   leftCoord = 0;
   topCoord = 0;
   bola.style.left = `0px`;
   bola.style.top = `0px`;
+}
+
+function sumarMarcador(puntos) {
+  marcador.textContent = puntos;
+}
+function reiniciarMarcador() {
+  const marcador = document.querySelector("#marcador");
+  puntos = 0;
+  marcador.textContent = puntos;
 }
