@@ -26,7 +26,7 @@ h2 ~ h2 {
 }
 
 #h2-breakout ~ h2 {
-  padding-top: 70px;
+  padding-top: 60px;
 }
 
 .bar {
@@ -45,11 +45,11 @@ h2 ~ h2 {
 
 .ball-container {
   width: 80%;
-  height: 200px;
+  height: 300px;
   margin: 0 auto;
   background-color: #034;
   position: relative;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 }
 
 .ball {

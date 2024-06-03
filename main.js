@@ -1,10 +1,36 @@
 //barra
+const btnInciar = document.querySelector("#iniciar-juego");
+const btnReiniciar = document.querySelector("#reiniciar-juego");
+const btnAumentarVelocidad = document.querySelector("#aumentar-velocidad");
+const btnDisminuirVelocidad = document.querySelector("#disminuir-velocidad");
+const spanVelocidadBola = document.querySelector("#velocidad-bola");
 const perdiste = document.querySelector("#perdiste");
-const delta = 20;
-let left = 200;
+const marcador = document.querySelector("#marcador");
+
 document.body.addEventListener("keydown", (e) => {
   moverBarra(e);
 });
+
+btnInciar.addEventListener("click", () => {
+  empezarJuego(velocidadBola);
+  btnInciar.textContent = "Continuar";
+});
+document.querySelector("#pausar-juego").addEventListener("click", () => {
+  pausarJuego();
+});
+btnReiniciar.addEventListener("click", () => {
+  reiniciarJuego();
+});
+
+btnAumentarVelocidad.addEventListener("click", () => {
+  aumentarVelocidadBola();
+});
+btnDisminuirVelocidad.addEventListener("click", () => {
+  disminuirVelocidadBola();
+});
+
+const movimientoDeBarraEnPixeles = 20;
+let coordLeftBarra = 200;
 
 function moverBarra(e) {
   const anchoDeContenedor =
@@ -13,17 +39,19 @@ function moverBarra(e) {
   const anchoBarra = 80;
   const direccion = e.code;
   if (direccion === "ArrowLeft") {
-    left = Math.max(0, left - delta);
+    coordLeftBarra = Math.max(0, coordLeftBarra - movimientoDeBarraEnPixeles);
   } else if (direccion === "ArrowRight") {
-    left = Math.min(anchoDeContenedor - anchoBarra, left + delta);
+    coordLeftBarra = Math.min(
+      anchoDeContenedor - anchoBarra,
+      coordLeftBarra + movimientoDeBarraEnPixeles
+    );
   }
-  barra.style.left = `${left}px`;
+  barra.style.left = `${coordLeftBarra}px`;
 }
 
 //pelota
 let topDelta = (leftDelta = 5);
 let topCoord = (leftCoord = 0);
-const fieldHeight = document.querySelector(".ball-container").clientHeight;
 
 const bola = document.querySelector(".ball");
 const anchoBola = 25;
@@ -34,8 +62,9 @@ let velocidadBola = 30;
 let velocidadBolaMostrada = 0;
 
 function moverPelota() {
+  const fieldHeight = document.querySelector(".ball-container").clientHeight;
+
   const fieldWidth = document.querySelector(".ball-container").clientWidth;
-  //crear ds funciones, que sean sobre movimiento en eje horizontal o vertical
   perdiste.textContent = "...";
 
   if (direccionEjeVertical === "abajo") {
@@ -43,8 +72,8 @@ function moverPelota() {
 
     if (
       topCoord === fieldHeight - anchoBola - 20 &&
-      leftCoord - left >= -40 &&
-      leftCoord - left <= 80
+      leftCoord - coordLeftBarra >= -40 &&
+      leftCoord - coordLeftBarra <= 80
     ) {
       puntos++;
       sumarMarcador(puntos);
@@ -83,30 +112,6 @@ function moverPelota() {
 
 let intervalID = null;
 //botones
-const btnInciar = document.querySelector("#iniciar-juego");
-const btnReiniciar = document.querySelector("#reiniciar-juego");
-const btnAumentarVelocidad = document.querySelector("#aumentar-velocidad");
-const btnDisminuirVelocidad = document.querySelector("#disminuir-velocidad");
-const spanVelocidadBola = document.querySelector("#velocidad-bola");
-const marcador = document.querySelector("#marcador");
-btnAumentarVelocidad.addEventListener("click", () => {
-  aumentarVelocidadBola();
-});
-btnDisminuirVelocidad.addEventListener("click", () => {
-  disminuirVelocidadBola();
-});
-
-btnInciar.addEventListener("click", () => {
-  empezarJuego(velocidadBola);
-  btnInciar.textContent = "Continuar";
-});
-btnReiniciar.addEventListener("click", () => {
-  reiniciarJuego();
-});
-
-document.querySelector("#pausar-juego").addEventListener("click", () => {
-  pausarJuego();
-});
 
 function empezarJuego(velocidadBola) {
   if (intervalID !== null) {
@@ -130,8 +135,9 @@ function reiniciarJuego() {
   topCoord = 0;
   bola.style.left = `0px`;
   bola.style.top = `0px`;
-  reiniciarMarcador();
+   reiniciarMarcador();
   pausarJuego();
+  reiniciarVelocidad()
 }
 
 function sumarMarcador(puntos) {
@@ -153,4 +159,11 @@ function disminuirVelocidadBola() {
   velocidadBolaMostrada--;
   pausarJuego();
   spanVelocidadBola.textContent = velocidadBolaMostrada;
+}
+function reiniciarVelocidad() {
+  velocidadBola = 30
+  velocidadBolaMostrada = 0
+  spanVelocidadBola.textContent = velocidadBolaMostrada;
+
+  
 }
