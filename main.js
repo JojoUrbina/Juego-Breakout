@@ -1,5 +1,5 @@
 //barra
-const perdiste = document.querySelector("#perdiste")
+const perdiste = document.querySelector("#perdiste");
 const delta = 20;
 let left = 200;
 document.body.addEventListener("keydown", (e) => {
@@ -29,11 +29,14 @@ const bola = document.querySelector(".ball");
 const anchoBola = 25;
 let direccionEjeVertical = "abajo";
 let direccionEjeHorizontal = "derecha";
-let i = 0
+let i = 0;
 
 function moverPelota() {
   const fieldWidth = document.querySelector(".ball-container").clientWidth;
-//crear ds funciones, que sean sobre movimiento en eje horizontal o vertical
+  //crear ds funciones, que sean sobre movimiento en eje horizontal o vertical
+  perdiste.textContent = "...";
+
+
   if (direccionEjeVertical === "abajo") {
     topCoord += topDelta;
 
@@ -46,10 +49,11 @@ function moverPelota() {
     }
 
     if (topCoord === fieldHeight - anchoBola) {
-      i++
-      direccionEjeVertical = "arriba";
-      perdiste.textContent = `Perdiste ${i} veces`
-      console.log("perdiste");
+      //cuando pierde
+      i++;
+      pausarJuego();
+      perder();
+  btnInciar.textContent = "Iniciar";
 
     }
   } else if (direccionEjeVertical === "arriba") {
@@ -84,7 +88,7 @@ btnInciar.addEventListener("click", () => {
 });
 
 document.querySelector("#pausar-juego").addEventListener("click", () => {
-  clearInterval(intervalID);
+  pausarJuego();
 });
 
 function empezarJuego() {
@@ -94,6 +98,10 @@ function empezarJuego() {
   intervalID = setInterval(moverPelota, 30);
 }
 function perder() {
-  topCoord = 1
-leftCoord= 1
+  leftCoord = 0;
+  topCoord = 0;
+  perdiste.textContent = `Perdiste`;
+}
+function pausarJuego() {
+  clearInterval(intervalID);
 }
